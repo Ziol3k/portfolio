@@ -99,7 +99,31 @@ export function Projects({
           const isSelected =
             selectedProjectId === project.id;
 
-          const hasDemo = project.id === 'mosaic-generator';
+          const hasDemo =
+            project.id === 'mosaic-generator';
+
+          const isDesktopGame =
+            project.id === 'minigolf-3d';
+
+          const badgeText = hasDemo
+            ? language === 'pl'
+              ? 'Interaktywne demo'
+              : 'Interactive demo'
+            : isDesktopGame
+              ? language === 'pl'
+                ? 'Gra desktopowa'
+                : 'Desktop game'
+              : ui.placeholder;
+
+          const actionText = isSelected
+            ? language === 'pl'
+              ? 'Projekt otwarty'
+              : 'Project opened'
+            : hasDemo
+              ? ui.openDemo
+              : language === 'pl'
+                ? 'Poznaj projekt'
+                : 'Explore project';
 
           return (
             <article
@@ -129,11 +153,7 @@ export function Projects({
                   </span>
 
                   <span className="project-tile__badge">
-                    {hasDemo
-                      ? language === 'pl'
-                        ? 'Interaktywne demo'
-                        : 'Interactive demo'
-                      : ui.placeholder}
+                    {badgeText}
                   </span>
                 </div>
 
@@ -159,16 +179,7 @@ export function Projects({
 
                   <div className="project-tile__footer">
                     <span className="project-tile__action">
-                      {isSelected
-                        ? language === 'pl'
-                          ? 'Projekt otwarty'
-                          : 'Project opened'
-                        : hasDemo
-                          ? ui.openDemo
-                          : language === 'pl'
-                            ? 'Poznaj projekt'
-                            : 'Explore project'}
-                      {' ↗'}
+                      {actionText} ↗
                     </span>
                   </div>
                 </div>

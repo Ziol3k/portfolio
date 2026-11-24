@@ -11,6 +11,12 @@ interface ProjectDetailsProps {
   onClose: () => void;
 }
 
+interface DetailCard {
+  number: string;
+  title: string;
+  description: string;
+}
+
 const copy = {
   pl: {
     eyebrow: 'WYBRANY PROJEKT',
@@ -76,16 +82,135 @@ const copy = {
   },
 };
 
+const minigolfCopy = {
+  pl: {
+    featuresTitle: 'Co znajduje się w grze?',
+    features: [
+      {
+        number: '01',
+        title: 'Dwa poziomy',
+        description:
+          'Dwa tory o różnych wymiarach. Drugi poziom zawiera obracający się wiatrak, który utrudnia trafienie do dołka.',
+      },
+      {
+        number: '02',
+        title: 'Fizyka piłki',
+        description:
+          'Ruch piłki uwzględnia grawitację, tarcie, odbicia od ścian i kolizje z łopatkami wiatraka.',
+      },
+      {
+        number: '03',
+        title: 'Kamera i HUD',
+        description:
+          'Kamera śledząca piłkę, opcjonalna kamera swobodna oraz interfejs pokazujący liczbę uderzeń.',
+      },
+    ],
+    controlsTitle: 'Jak sterować?',
+    controls: [
+      {
+        number: '01',
+        title: 'Mysz',
+        description:
+          'Ruch myszą obraca kierunek celowania. Przytrzymaj lewy przycisk i przeciągnij w górę, aby zwiększyć siłę. Puść przycisk, żeby uderzyć.',
+      },
+      {
+        number: '02',
+        title: 'Strzałki ↑ / ↓',
+        description:
+          'Zmieniają kąt wybicia piłki, kiedy piłka jest zatrzymana.',
+      },
+      {
+        number: '03',
+        title: 'C oraz 1 / 2',
+        description:
+          'Klawisz C przełącza kamerę swobodną, a klawisze 1 i 2 umożliwiają wybór poziomu.',
+      },
+    ],
+    statusTitle: 'Wersja przeglądarkowa w przygotowaniu',
+    statusDescription:
+      'Minigolf działa obecnie jako natywna aplikacja C++ z OpenSceneGraph. Badamy możliwość uruchomienia oryginalnego projektu w przeglądarce bez przepisywania gry na inny silnik.',
+  },
+  en: {
+    featuresTitle: 'What is inside the game?',
+    features: [
+      {
+        number: '01',
+        title: 'Two levels',
+        description:
+          'Two courses with different dimensions. The second level includes a rotating windmill that makes reaching the hole more challenging.',
+      },
+      {
+        number: '02',
+        title: 'Ball physics',
+        description:
+          'Ball movement includes gravity, friction, wall bounces and collisions with the windmill blades.',
+      },
+      {
+        number: '03',
+        title: 'Camera and HUD',
+        description:
+          'A ball-following camera, an optional free camera and an interface that displays the stroke count.',
+      },
+    ],
+    controlsTitle: 'How to play?',
+    controls: [
+      {
+        number: '01',
+        title: 'Mouse',
+        description:
+          'Move the mouse to aim. Hold the left button and drag upwards to increase power. Release the button to shoot.',
+      },
+      {
+        number: '02',
+        title: 'Arrow keys ↑ / ↓',
+        description:
+          'Adjust the launch angle while the ball is stopped.',
+      },
+      {
+        number: '03',
+        title: 'C and 1 / 2',
+        description:
+          'Press C to toggle the free camera, and use 1 or 2 to select a level.',
+      },
+    ],
+    statusTitle: 'Browser version in development',
+    statusDescription:
+      'Minigolf currently runs as a native C++ application using OpenSceneGraph. We are exploring options to run the original project in a browser without rewriting the game in another engine.',
+  },
+};
+
+function DetailCards({ cards }: { cards: DetailCard[] }) {
+  return (
+    <div className="project-details__steps">
+      {cards.map((card) => (
+        <div
+          key={card.number}
+          className="project-details__step"
+        >
+          <strong>{card.number}</strong>
+
+          <h4>{card.title}</h4>
+
+          <p>{card.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function ProjectDetails({
   project,
   language,
   onClose,
 }: ProjectDetailsProps) {
   const t = copy[language];
+  const minigolf = minigolfCopy[language];
+
   const category =
     translations[language].projectsUi.filters[project.category];
 
   const isMosaic = project.id === 'mosaic-generator';
+  const isMinigolf = project.id === 'minigolf-3d';
 
   return (
     <section
@@ -178,26 +303,47 @@ export function ProjectDetails({
 
             <h3>{t.how}</h3>
 
-            <div className="project-details__steps">
-              {t.steps.map((step) => (
-                <div
-                  key={step.number}
-                  className="project-details__step"
-                >
-                  <strong>{step.number}</strong>
-                  <h4>{step.title}</h4>
-                  <p>{step.description}</p>
-                </div>
-              ))}
-            </div>
+            <DetailCards cards={t.steps} />
           </div>
 
           <MosaicDemo language={language} />
         </>
+      ) : isMinigolf ? (
+        <>
+          <div className="project-details__workflow">
+            <span className="project-details__eyebrow">
+              02 / {minigolf.featuresTitle}
+            </span>
+
+            <h3>{minigolf.featuresTitle}</h3>
+
+            <DetailCards cards={minigolf.features} />
+          </div>
+
+          <div className="project-details__workflow">
+            <span className="project-details__eyebrow">
+              03 / {minigolf.controlsTitle}
+            </span>
+
+            <h3>{minigolf.controlsTitle}</h3>
+
+            <DetailCards cards={minigolf.controls} />
+          </div>
+
+          <div className="project-details__coming">
+            <span aria-hidden="true">⛳</span>
+
+            <h3>{minigolf.statusTitle}</h3>
+
+            <p>{minigolf.statusDescription}</p>
+          </div>
+        </>
       ) : (
         <div className="project-details__coming">
           <span aria-hidden="true">✳</span>
+
           <h3>{t.coming}</h3>
+
           <p>{t.comingDescription}</p>
         </div>
       )}
