@@ -5,8 +5,12 @@ import type { ProjectCategory } from '../data/projects';
 import { translations } from '../i18n/translations';
 import type { Language } from '../i18n/translations';
 
+import './Projects.css';
+
 interface ProjectsProps {
   language: Language;
+  selectedProjectId: string | null;
+  onSelectProject: (projectId: string) => void;
 }
 
 type ProjectFilter = 'all' | ProjectCategory;
@@ -19,7 +23,11 @@ const filters: ProjectFilter[] = [
   'research',
 ];
 
-export function Projects({ language }: ProjectsProps) {
+export function Projects({
+  language,
+  selectedProjectId,
+  onSelectProject,
+}: ProjectsProps) {
   const [activeFilter, setActiveFilter] =
     useState<ProjectFilter>('all');
 
@@ -51,7 +59,8 @@ export function Projects({ language }: ProjectsProps) {
         </div>
 
         <span className="projects-total">
-          {String(projects.length).padStart(2, '0')} / PROJECTS
+          {String(projects.length).padStart(2, '0')}
+          {' / PROJECTS'}
         </span>
       </div>
 
@@ -86,86 +95,87 @@ export function Projects({ language }: ProjectsProps) {
             : '',
         ].join(' ')}
       >
-        {visibleProjects.map((project, index) => (
-          <article
-            key={project.id}
-            className={[
-              'project-tile',
-              `project-tile--${project.theme}`,
-              `project-tile--${project.layout}`,
-            ].join(' ')}
-          >
-            <div className="project-tile__top">
-              <span>
-                {String(index + 1).padStart(2, '0')}
-                {' / '}
-                {ui.filters[project.category]}
-              </span>
+        {visibleProjects.map((project, index) => {
+          const isSelected =
+            selectedProjectId === project.id;
 
-              <span className="project-tile__badge">
-                {ui.placeholder}
-              </span>
-            </div>
+          const hasDemo = project.id === 'mosaic-generator';
 
-            <div
-              className="project-tile__art"
-              aria-hidden="true"
+          return (
+            <article
+              key={project.id}
+              className={[
+                'project-tile',
+                'project-tile--interactive',
+                isSelected ? 'project-tile--selected' : '',
+                `project-tile--${project.theme}`,
+                `project-tile--${project.layout}`,
+              ].join(' ')}
             >
-              <span className="project-tile__symbol">
-                {project.symbol}
-              </span>
-            </div>
-
-            <div className="project-tile__content">
-              <h3>{project.title[language]}</h3>
-
-              <p>{project.description[language]}</p>
-
-              <div className="project-tile__tech">
-                {project.technologies.map((tech) => (
-                  <span key={tech}>{tech}</span>
-                ))}
-              </div>
-
-              <div className="project-tile__footer">
-                {project.demoUrl ? (
-                <a
-                  href={project.demoUrl}
-                  target={
-                    project.demoUrl.startsWith('#')
-                      ? undefined
-                      : '_blank'
-                  }
-                  rel={
-                    project.demoUrl.startsWith('#')
-                      ? undefined
-                      : 'noopener noreferrer'
-                  }
-                >
-                  {ui.openDemo} ↗
-                </a>
-
-                ) : (
+              <button
+                type="button"
+                className="project-tile__button"
+                onClick={() => onSelectProject(project.id)}
+                aria-pressed={isSelected}
+                aria-controls={
+                  isSelected ? 'project-details' : undefined
+                }
+              >
+                <div className="project-tile__top">
                   <span>
-                    {project.category === 'research'
-                      ? ui.detailsSoon
-                      : ui.demoSoon}
+                    {String(index + 1).padStart(2, '0')}
+                    {' / '}
+                    {ui.filters[project.category]}
                   </span>
-                )}
 
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {ui.sourceCode} ↗
-                  </a>
-                )}
-              </div>
-            </div>
-          </article>
-        ))}
+                  <span className="project-tile__badge">
+                    {hasDemo
+                      ? language === 'pl'
+                        ? 'Interaktywne demo'
+                        : 'Interactive demo'
+                      : ui.placeholder}
+                  </span>
+                </div>
+
+                <div
+                  className="project-tile__art"
+                  aria-hidden="true"
+                >
+                  <span className="project-tile__symbol">
+                    {project.symbol}
+                  </span>
+                </div>
+
+                <div className="project-tile__content">
+                  <h3>{project.title[language]}</h3>
+
+                  <p>{project.description[language]}</p>
+
+                  <div className="project-tile__tech">
+                    {project.technologies.map((tech) => (
+                      <span key={tech}>{tech}</span>
+                    ))}
+                  </div>
+
+                  <div className="project-tile__footer">
+                    <span className="project-tile__action">
+                      {isSelected
+                        ? language === 'pl'
+                          ? 'Projekt otwarty'
+                          : 'Project opened'
+                        : hasDemo
+                          ? ui.openDemo
+                          : language === 'pl'
+                            ? 'Poznaj projekt'
+                            : 'Explore project'}
+                      {' ↗'}
+                    </span>
+                  </div>
+                </div>
+              </button>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
