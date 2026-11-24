@@ -15,6 +15,7 @@ export const translations = {
         game: 'Gry',
         web: 'Web',
         research: 'Akademickie',
+        graphics: 'Grafika',
     },
     placeholder: 'Wpis roboczy',
     demoSoon: 'Demo w przygotowaniu',
@@ -63,6 +64,26 @@ export const translations = {
         '',
     },
 
+
+    mosaic: {
+      eyebrow: 'INTERAKTYWNY PROJEKT / C++ + OPENCV',
+      title: 'Twoje zdjęcie. Moja mozaika.',
+      description:
+        'Wgraj fotografię i zobacz, jak mój algorytm C++ przekształca ją w mozaikę z półprzezroczystych okręgów.',
+      upload: 'Wybierz zdjęcie',
+      generate: 'Generuj mozaikę',
+      generating: 'Trwa przetwarzanie...',
+      original: 'Oryginał',
+      result: 'Wynik',
+      empty: 'Tutaj pojawi się wygenerowana mozaika.',
+      download: 'Pobierz PNG',
+      invalidFile: 'Wybierz plik JPG lub PNG.',
+      tooLarge: 'Plik nie może przekraczać 8 MB.',
+      error: 'Nie udało się wygenerować mozaiki.',
+      imageAlt: 'Wygenerowana mozaika',
+    },
+
+
     footer: 'Więcej kodu znajdziesz na moim GitHubie.',
   },
 
@@ -80,6 +101,7 @@ export const translations = {
         game: 'Games',
         web: 'Web',
         research: 'Academic',
+        graphics: 'Graphics',
     },
     placeholder: 'Draft entry',
     demoSoon: 'Demo coming soon',
@@ -126,6 +148,26 @@ export const translations = {
       aboutDescription:
         '',
     },
+
+
+    mosaic: {
+      eyebrow: 'INTERACTIVE PROJECT / C++ + OPENCV',
+      title: 'Your photo. My mosaic.',
+      description:
+        'Upload a photo and see how my C++ algorithm transforms it into a mosaic made of translucent circles.',
+      upload: 'Choose an image',
+      generate: 'Generate mosaic',
+      generating: 'Processing...',
+      original: 'Original',
+      result: 'Result',
+      empty: 'Your generated mosaic will appear here.',
+      download: 'Download PNG',
+      invalidFile: 'Choose a JPG or PNG image.',
+      tooLarge: 'The file must not exceed 8 MB.',
+      error: 'Failed to generate the mosaic.',
+      imageAlt: 'Generated mosaic',
+    },
+
 
     footer: 'Find more of my code on GitHub.',
   },

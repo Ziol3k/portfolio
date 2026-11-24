@@ -14,6 +14,7 @@ type ProjectFilter = 'all' | ProjectCategory;
 const filters: ProjectFilter[] = [
   'all',
   'game',
+  'graphics',
   'web',
   'research',
 ];
@@ -128,13 +129,22 @@ export function Projects({ language }: ProjectsProps) {
 
               <div className="project-tile__footer">
                 {project.demoUrl ? (
-                  <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {ui.openDemo} ↗
-                  </a>
+                <a
+                  href={project.demoUrl}
+                  target={
+                    project.demoUrl.startsWith('#')
+                      ? undefined
+                      : '_blank'
+                  }
+                  rel={
+                    project.demoUrl.startsWith('#')
+                      ? undefined
+                      : 'noopener noreferrer'
+                  }
+                >
+                  {ui.openDemo} ↗
+                </a>
+
                 ) : (
                   <span>
                     {project.category === 'research'

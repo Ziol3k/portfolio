@@ -1,6 +1,10 @@
 import type { Language } from '../i18n/translations';
 
-export type ProjectCategory = 'game' | 'web' | 'research';
+export type ProjectCategory =
+  | 'game'
+  | 'web'
+  | 'research'
+  | 'graphics';
 
 export interface Project {
   id: string;
@@ -96,4 +100,34 @@ export const projects: Project[] = [
     },
     technologies: ['Web', 'Application'],
   },
+  {
+    id: 'mosaic-generator',
+    category: 'graphics',
+    layout: 'wide',
+    theme: 'pink',
+    symbol: '◉',
+
+    title: {
+      pl: 'Generator mozaiki 2D',
+      en: '2D Mosaic Generator',
+    },
+
+    description: {
+      pl: 'Interaktywny generator mozaik napisany w C++ z wykorzystaniem OpenCV. Prześlij własne zdjęcie i zobacz, jak algorytm przekształca je w kompozycję z półprzezroczystych okręgów.',
+      en: 'An interactive mosaic generator built with C++ and OpenCV. Upload your own photo and watch the algorithm transform it into a composition of translucent circles.',
+    },
+
+    technologies: [
+      'C++',
+      'OpenCV',
+      'Image Processing',
+      'Docker',
+      'FastAPI',
+    ],
+
+    githubUrl: 'https://github.com/Ziol3k/Zaawansowana-Grafika-Komputerowa',
+
+    demoUrl: '#mosaic-demo',
+  },
+
 ];

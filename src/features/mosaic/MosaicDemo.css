@@ -1,0 +1,147 @@
+.mosaic-section {
+  padding: 90px 0;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 30px;
+}
+
+.mosaic-heading h2 {
+  margin: 14px 0;
+  font-size: clamp(38px, 4.5vw, 62px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.mosaic-heading > p:last-child {
+  max-width: 680px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.mosaic-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 35px 0;
+}
+
+.mosaic-upload-label,
+.mosaic-generate-button,
+.mosaic-download a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 22px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.mosaic-upload-label {
+  display: none;
+}
+
+.mosaic-controls input[type="file"] {
+  max-width: 100%;
+  color: var(--muted);
+}
+
+.mosaic-controls input[type="file"]::file-selector-button {
+  padding: 14px 18px;
+  margin-right: 12px;
+  color: var(--text);
+  background: #29213e;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.mosaic-filename {
+  color: var(--muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.mosaic-generate-button {
+  border: 0;
+  background: var(--accent);
+  color: #171321;
+}
+
+.mosaic-generate-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.mosaic-error {
+  color: #ffaaa9;
+  margin-bottom: 20px;
+}
+
+.mosaic-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.mosaic-preview {
+  padding: 20px;
+  background: #241c37;
+  border-radius: 20px;
+  min-width: 0;
+}
+
+.mosaic-preview h3 {
+  margin: 0 0 15px;
+  font-size: 16px;
+}
+
+.mosaic-image-container {
+  height: 360px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #171124;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.mosaic-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mosaic-image-container span {
+  max-width: 240px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.mosaic-download {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.mosaic-download a {
+  background: var(--purple);
+  color: #171021;
+}
+
+@media (max-width: 700px) {
+  .mosaic-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mosaic-image-container {
+    height: 290px;
+  }
+
+  .mosaic-section {
+    padding: 60px 0;
+  }
+}
